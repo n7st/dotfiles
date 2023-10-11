@@ -1,0 +1,57 @@
+source $HOME/.config/zsh/antigen.zsh;
+
+antigen use oh-my-zsh;
+
+ANTIGEN_PLUGINS=(
+  'git'
+  'command-not-found'
+  'docker'
+  'zsh-users/zsh-completions'
+  'zsh-users/zsh-autosuggestions'
+  'zsh-users/zsh-syntax-highlighting'
+);
+
+for plugin in $ANTIGEN_PLUGINS;
+do
+  antigen bundle $plugin;
+done
+
+SPACESHIP_CHAR_SUFFIX=" ";
+SPACESHIP_CHAR_SYMBOL=">";
+
+antigen theme fishy;
+
+antigen apply;
+
+RBENV_BIN="$HOME/.rbenv/bin";
+GO_BIN="$HOME/go/bin";
+
+PATHS=(
+  '.config/emacs/bin' # For Doom Emacs
+  '.crenv/bin' # Crystal
+  '.local/bin' # Python
+  '.rbenv/bin' # Ruby
+  'go/bin' # Go
+);
+
+CONFIGS=(
+  '.phpbrew/bashrc' # PHP
+  'perl5/perlbrew/etc/bashrc' # Perl
+);
+
+for path_part in $PATHS;
+do
+  full_path="$HOME/$path_part";
+
+  [[ -d $full_path ]] && export PATH="$full_path:$PATH";
+done
+
+for config in $CONFIGS;
+do
+  full_config="$HOME/$config";
+
+  [[ -f $full_config ]] && source $full_config;
+done
+
+[[ -x "$(command -v rbenv)" ]] && eval "$(rbenv init - zsh)";
+[[ -x "$(command -v crenv)" ]] && eval "$(crenv init -)";
