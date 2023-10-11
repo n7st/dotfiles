@@ -1,4 +1,6 @@
-source $HOME/.config/zsh/antigen.zsh;
+ZSH_DIR="$HOME/.config/zsh/";
+
+source $ZSH_DIR/antigen.zsh;
 
 antigen use oh-my-zsh;
 
@@ -55,3 +57,5 @@ done
 
 [[ -x "$(command -v rbenv)" ]] && eval "$(rbenv init - zsh)";
 [[ -x "$(command -v crenv)" ]] && eval "$(crenv init -)";
+
+source $ZSH_DIR/zsh_aliases;
