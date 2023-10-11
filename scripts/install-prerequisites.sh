@@ -30,6 +30,7 @@ install_antigen () {
 PACKAGES=(
   'emacs'
   'git'
+  'neovim'
   'tmux'
   'zsh'
 );
