@@ -103,3 +103,9 @@
 (global-set-key [remap evil-quit] 'kill-buffer-and-window)
 
 (add-hook 'imenu-after-jump-hook 'nav-flash-show nil t)
+
+(setq fancy-splash-image (concat doom-user-dir "emacs.svg"))
+
+(if (eq initial-window-system 'x) ; if started by emacs command or desktop file
+  (toggle-frame-maximized)
+  (toggle-frame-fullscreen))

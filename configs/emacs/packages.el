@@ -51,3 +51,6 @@
 
 (package! key-chord) ;; Define keyboard shortcuts
 (package! multi-vterm) ;; Use more than one vterm at once
+(package! elpher) ;; Gemini client
+(package! fzf)
+(package! coffee-mode)
