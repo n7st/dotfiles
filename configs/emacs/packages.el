@@ -53,4 +53,17 @@
 (package! multi-vterm) ;; Use more than one vterm at once
 (package! elpher) ;; Gemini client
 (package! fzf)
-(package! coffee-mode)
+(package! coffee-mode) ;; Coffeescript (Resolver: Decider)
+(package! tramp) ;; Remote development over the network
+(package! org-roam)
+
+;; Ruby development environment bits {{
+(package! rubocop)
+;; }}
+
+(package! ssh-config-mode) ;; Syntax for SSH configuration files
+
+;; Shell stuff {{
+(package! eat)
+(package! exec-path-from-shell) ;; Use my path inside scripts
+;; }}
