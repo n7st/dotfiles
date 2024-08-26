@@ -1,17 +1,23 @@
-ZSH_DIR="$HOME/.config/zsh/";
+# -*- mode: shell-script -*-
+
+ZSH_DIR="$HOME/.config/zsh";
 
 source $ZSH_DIR/antigen.zsh;
 
 antigen use oh-my-zsh;
 
 ANTIGEN_PLUGINS=(
+  'asdf'
   'git'
   'command-not-found'
+  'direnv'
   'docker'
   'zsh-users/zsh-completions'
   'zsh-users/zsh-autosuggestions'
   'zsh-users/zsh-syntax-highlighting'
 );
+
+zstyle ':omz:plugins:docker' legacy-completion yes;
 
 for plugin in $ANTIGEN_PLUGINS;
 do
@@ -57,5 +63,8 @@ done
 
 [[ -x "$(command -v rbenv)" ]] && eval "$(rbenv init - zsh)";
 [[ -x "$(command -v crenv)" ]] && eval "$(crenv init -)";
+
+export EDITOR="/usr/bin/nvim";
+export GPG_TTY=$(tty);
 
 source $ZSH_DIR/zsh_aliases;

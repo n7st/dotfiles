@@ -1,1 +1,6 @@
 alias grep="grep --exclude .vstags --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} $@";
+alias 'docker-compose'='docker compose $@';
+alias vi='emacsclient';
+alias nano='emacsclient';
+alias clean-unused-containers='docker container rm $(docker container ls -aq --filter="name=*-test-*")';
+alias code='emacsclient -n $@';
