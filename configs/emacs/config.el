@@ -28,15 +28,18 @@
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
-(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 16))
+;(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 16))
+(setq doom-font (font-spec :family "Fira Code Nerd Font" :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;(setq doom-theme 'doom-one)
-(setq doom-theme 'doom-ayu-dark)
+;(setq doom-theme 'doom-ayu-dark)
+(setq doom-theme 'doom-challenger-deep)
 
 (setq projectile-project-search-path '("~/Documents/Projects"))
+(projectile-discover-projects-in-search-path)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -45,6 +48,16 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+
+(setq org-agenda-files '("~/org/agenda"))
+
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+
+;; set variable org-local-notes-file locally
+(setq org-capture-templates
+  '(("t" "Todo" entry (file "~/org/agenda/inbox.org")
+      "* TODO %?\n Dated: %u\n Location: %a")
+     ))
 
 ;; Map "jj" to <Esc> in Vim mode
 (setq key-chord-two-keys-delay 0.7)
@@ -109,3 +122,89 @@
 (if (eq initial-window-system 'x) ; if started by emacs command or desktop file
   (toggle-frame-maximized)
   (toggle-frame-fullscreen))
+
+
+;; Tramp (remote development) configuration {{
+(setq tramp-default-method "ssh")
+(setq vterm-tramp-shells '(("ssh" "/usr/bin/zsh")))
+;; }}
+
+(add-to-list 'tramp-connection-properties
+  (list (regexp-quote "/ssh:mike@hadrian:")
+    "remote-shell" "/usr/bin/zsh"))
+(add-to-list 'tramp-connection-properties
+  (list (regexp-quote "/sshx:mike@hadrian:")
+    "remote-shell" "/usr/bin/zsh"))
+(customize-set-variable 'tramp-encoding-shell "/usr/bin/zsh")
+
+;; Ruby development environment bits {{
+(add-hook 'ruby-mode-hook #'rubocop-mode) ;; Enable RuboCop by default in Ruby files
+;; }}
+
+;; org-roam {{
+(setq org-roam-directory (file-truename "~/org/roam"))
+;; }}
+
+;; Ligatures {{
+(global-ligature-mode t)
+;; }}
+
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
+;; :wq completely closes emacs by default in evil-mode. This overrides that
+;; behaviour, ensuring it only terminates the current buffer {{
+(evil-ex-define-cmd "wq" 'save-and-kill-this-buffer)
+(defun save-and-kill-this-buffer()(interactive)(save-buffer)(kill-current-buffer))
+;; }}
+
+;; Custom "SPC" keybindings {{
+(map! :leader "fz" 'fzf-find-file)
+;; }}
+
+;; Use my PATH
+(when (daemonp)
+  (exec-path-from-shell-initialize))
+
+;; Org mode helpers
+(defun add-hlines (table)
+  "Add hlines to a table (by adding a hline to the script's output output)"
+  (cl-map 'list
+    (lambda (r) (if (and (listp r) (equal (car r) 'hline))
+             'hline
+             r))
+    table))
+
+;; Git config {{
+;; Use the GPG agent for signing
+(setq epg-gpg-program "gpg")
+(setenv "GPG_AGENT_INFO" nil)
+
+;; Magit settings for commit signing
+(setq magit-commit-arguments '("--gpg-sign"))
+;; }}
+
+;; Override kill-this-buffer to leave the frame open {{
+(defun my/kill-this-buffer ()
+  "Kill the current buffer without deleting the frame."
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(map! :leader
+  :desc "Kill buffer" "b k" #'my/kill-this-buffer)
+;; }}
+
+(global-set-key (kbd "C-c s") 'flyspell-learn-word-at-point)
+
+(defun flyspell-learn-word-at-point ()
+  "Takes the highlighted word at point -- nominally a misspelling -- and inserts it into the personal/private dictionary, such that it is known and recognized as a valid word in the future."
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (when (consp word)
+      (flyspell-do-correct
+        'save nil
+        (car word)
+        current-location
+        (cadr word)
+        (caddr word)
+        current-location))))

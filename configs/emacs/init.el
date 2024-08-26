@@ -36,7 +36,7 @@
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
-       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink cursor line after big motions
@@ -74,14 +74,14 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; the elisp shell that works everywhere
+       eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       ;;(spell +flyspell) ; tasing you for misspelling mispelling
+       (spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -90,7 +90,7 @@
        ;;collab            ; buffers with friends
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       ;;docker
+       docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -104,7 +104,7 @@
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
-       ;;terraform         ; infrastructure as code
+       terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
@@ -120,15 +120,15 @@
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
-       ;;crystal           ; ruby at the speed of c
+       crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
        ;;data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;dhall
-       ;;elixir            ; erlang done right
+       elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
-       ;;erlang            ; an elegant language for a more civilized age
+       erlang            ; an elegant language for a more civilized age
        ;;ess               ; emacs speaks statistics
        ;;factor
        ;;faust             ; dsp, but you get to keep your soul
