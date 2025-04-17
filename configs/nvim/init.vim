@@ -51,11 +51,9 @@ function! ToggleBottomTerminal()
   let term_win = -1
   let bottom_row = -1
 
-  " Loop through all windows
   for win in range(1, winnr('$'))
     let bufnr = winbufnr(win)
     if getbufvar(bufnr, '&buftype') ==# 'terminal'
-      " Get window position on screen (row)
       let pos = win_screenpos(win)[0]
       if pos > bottom_row
         let term_win = win
@@ -65,13 +63,11 @@ function! ToggleBottomTerminal()
   endfor
 
   if term_win > 0
-    " Found a bottom-most terminal window — close it
     execute term_win . 'wincmd w'
     close
   else
-    " No bottom terminal found — open one
     botright split
-    resize 15
+    resize 28
     terminal
   endif
 endfunction
